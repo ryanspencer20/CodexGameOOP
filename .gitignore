@@ -1,0 +1,18 @@
+## .NET / C# gitignore
+
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+*.user
+*.suo
+
+# Rider
+.idea/
+
+# OS
+desktop.ini
+Thumbs.db
+.DS_Store
