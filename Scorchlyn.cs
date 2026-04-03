@@ -15,7 +15,7 @@ namespace CodexGame
 {
     internal class Scorchlyn: Creatures
     {
-        public Scorchlyn(int health, int level, bool isCaptured = false) : base(name: "Scorchlyn", health, level, type: CreatureType.Fire, isCaptured)
+        public Scorchlyn(int health, int level, bool isCaptured = false, Dictionary<String, Dictionary<String, int>> abilities = null) : base(name: "Scorchlyn", health, level, type: CreatureType.Fire, isCaptured, abilities)
         {
         }
         public override void CreatureDescription()
