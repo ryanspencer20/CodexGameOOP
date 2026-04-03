@@ -60,40 +60,49 @@ namespace CodexGame
             Console.WriteLine("3. Tarkyuss - Earth Type");
             while (!validInput)
             {            
-            Console.Write("Enter the number corresponding to your choice: ");
-            string choice = Console.ReadLine();
-            switch (choice) // Player Menu options to select their starting creature, which will display the creature's stats and description.
-            {
-                case "1":
-                    Scorchlyn scorchlynStarter = new Scorchlyn(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
-                    Console.WriteLine($"You have chosen {scorchlynStarter.GetType().Name}!");
-                    scorchlynStarter.CreatureStats();
-                    scorchlynStarter.CreatureDescription();
-                    // TO DO: Update player class to allow the player to capture the creature and add it to their collection, which will involve updating the isCaptured property and allowing the player to view their captured creatures.
-                    validInput = true;
-                    break;
-                case "2":
-                    Swirlyfin swirlyfinStarter = new Swirlyfin(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
-                    Console.WriteLine($"You have chosen {swirlyfinStarter.GetType().Name}!");
-                     swirlyfinStarter.CreatureStats();
-                    swirlyfinStarter.CreatureDescription();
-                    // TO DO: Update player class to allow the player to capture the creature and add it to their collection, which will involve updating the isCaptured property and allowing the player to view their captured creatures.
-                    validInput = true;
-                    break;
-                case "3":
-                    Tarkyuss tarkyussStarter = new Tarkyuss(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
-                    Console.WriteLine($"You have chosen {tarkyussStarter.GetType().Name}!");
-                    tarkyussStarter.CreatureStats();
-                    tarkyussStarter.CreatureDescription();
-                    // TO DO: Update player class to allow the player to capture the creature and add it to their collection, which will involve updating the isCaptured property and allowing the player to view their captured creatures.
-                    validInput = true;
-                    break;
-                default:
-                    Console.WriteLine("INVALID INPUT! Please re-enter and select a valid choice.");
-                    validInput = false;
-                    break; // Check if the input is valid (1, 2, or 3), otherwise loop display an error message and prompt the player to re-enter their choice.
+                Console.Write("Enter the number corresponding to your choice: ");
+                string choice = Console.ReadLine();
+                switch (choice) // Player Menu options to select their starting creature, which will display the creature's stats and description.
+                {
+                    case "1":
+                        Scorchlyn scorchlynStarter = new Scorchlyn(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
+                        scorchlynStarter.AddAttack("Exhaust Engulf", 20);
+                        scorchlynStarter.AddAttack("Flamed Tail", 30);
+                        scorchlynStarter.AddDefense("Fire Guard", 10);
+                        Console.WriteLine($"You have chosen {scorchlynStarter.GetType().Name}!");
+                        scorchlynStarter.CreatureStats();
+                        scorchlynStarter.CreatureDescription();
+                        scorchlynStarter.Capture(); // Capture the creature immediately upon selection, which will update the isCaptured property and allow the player to view their captured creatures in their collection.
+                        validInput = true;
+                        break;
+                    case "2":
+                        Swirlyfin swirlyfinStarter = new Swirlyfin(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
+                        swirlyfinStarter.AddAttack("Whirlpool", 30);
+                        swirlyfinStarter.AddDefense("Agility", 15);
+                        swirlyfinStarter.AddDefense("Fin Array", 20);
+                        Console.WriteLine($"You have chosen {swirlyfinStarter.GetType().Name}!");
+                        swirlyfinStarter.CreatureStats();
+                        swirlyfinStarter.CreatureDescription();
+                        swirlyfinStarter.Capture(); // Capture the creature immediately upon selection, which will update the isCaptured property and allow the player to view their captured creatures in their collection.
+                        validInput = true;
+                        break;
+                    case "3":
+                        Tarkyuss tarkyussStarter = new Tarkyuss(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
+                        tarkyussStarter.AddAttack("Claw Strike", 15);
+                        tarkyussStarter.AddAttack("Rolling Spikes", 35);
+                        tarkyussStarter.AddDefense("Shell Shield", 10);
+                        Console.WriteLine($"You have chosen {tarkyussStarter.GetType().Name}!");
+                        tarkyussStarter.CreatureStats();
+                        tarkyussStarter.CreatureDescription();
+                        tarkyussStarter.Capture(); // Capture the creature immediately upon selection, which will update the isCaptured property and allow the player to view their captured creatures in their collection.
+                        validInput = true;
+                        break;
+                    default:
+                        Console.WriteLine("INVALID INPUT! Please re-enter and select a valid choice.");
+                        validInput = false;
+                        break; // Check if the input is valid (1, 2, or 3), otherwise loop display an error message and prompt the player to re-enter their choice.
+                }
             }
-        }
             Console.WriteLine("");
             Console.WriteLine($"Congratulations {playerName} on choosing your first creature! Your adventure begins now. Explore the world, capture new creatures, and become a legendary trainer!");
         }

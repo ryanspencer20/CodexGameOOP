@@ -15,7 +15,7 @@ namespace CodexGame
 {
     internal class Tarkyuss: Creatures
     {
-        public Tarkyuss(int health, int level, bool isCaptured = false) : base(name: "Tarkyuss", health, level, type: CreatureType.Earth, isCaptured)
+        public Tarkyuss(int health, int level, bool isCaptured = false, Dictionary<String, Dictionary<String, int>> abilities = null) : base(name: "Tarkyuss", health, level, type: CreatureType.Earth, isCaptured, abilities)
         {
         }
 
