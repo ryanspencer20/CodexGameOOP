@@ -35,6 +35,18 @@ namespace CodexGame
             this.abilities = abilities ?? new Dictionary<String, Dictionary<String, int>> { { "Attack", new Dictionary<String, int>() }, { "Defense", new Dictionary<String, int>() } };
             this.isCaptured = isCaptured;
         }
+        public string GetName()
+        {
+            return name;
+        }
+        public int Health()
+        {
+            return health;
+        }
+        public Dictionary<string, int> GetAttackMoves()
+        {
+            return abilities["Attack"];
+        }
         public void CreatureStats()
         {
             Console.WriteLine($"Name: {name}\nHealth: {health}\nLevel: {level}\nType: {type}");
