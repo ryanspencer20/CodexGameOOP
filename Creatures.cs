@@ -18,13 +18,14 @@ namespace CodexGame
         Water,
         Wind
     }
-    internal abstract class Creatures // Parent Class representing a creature in the Codex Game
+    internal class Creatures // Parent Class representing a creature in the Codex Game
     {
         private String name;
         private int health;
         private int level;
         private CreatureType type;
         private bool isCaptured;
+        private int activeDefense = 0;
         private Dictionary<String, Dictionary<String, int>> abilities = new Dictionary<String, Dictionary<String, int>> { { "Attack", new Dictionary<String, int>() }, { "Defense", new Dictionary<String, int>() } }; // Dictionary to store the creature's abilities, which will allow for dynamic addition and management of abilities for each creature, enhancing the depth and customization options for players.
         public Creatures(String name, int health, int level, CreatureType type, bool isCaptured = false, Dictionary<String, Dictionary<String, int>> abilities = null)
         {
@@ -35,17 +36,17 @@ namespace CodexGame
             this.abilities = abilities ?? new Dictionary<String, Dictionary<String, int>> { { "Attack", new Dictionary<String, int>() }, { "Defense", new Dictionary<String, int>() } };
             this.isCaptured = isCaptured;
         }
-        public string GetName()
+        public String GetName() // Get the creature's name, which will allow players to easily identify and refer to their creatures during battles and interactions.
         {
             return name;
-        }
-        public int Health()
-        {
-            return health;
-        }
+        }   
         public Dictionary<string, int> GetAttackMoves()
         {
             return abilities["Attack"];
+        }
+        public Dictionary<string, int> GetDefenseMoves()
+        {
+            return abilities["Defense"];
         }
         public void CreatureStats()
         {
@@ -69,6 +70,10 @@ namespace CodexGame
             isCaptured = true;
             Console.WriteLine($"{name} has been captured!"); 
         }
+        public int GetHealth() // Get the creature's health, which will allow players to easily identify and refer to their creatures during battles and interactions.
+        {
+            return health;
+        }
         public void UpdateHealth(int amount) // Update the creature's health by a specified amount, which will allow players to manage their creature's health during battles and interactions, adding a strategic element to the gameplay.
         {
             if (health + amount < 0)
@@ -84,6 +89,16 @@ namespace CodexGame
                 health += amount;
             }
         }
+        public void SetActiveDefense(int amount)
+        {
+            activeDefense = amount;
+        }
+        public int DefenseUsed()
+        {
+            int def = activeDefense;
+            activeDefense = 0;
+            return def;
+        }
         public void AddAttack(String attackName, int power) // Add an attack name and power to the dictionary.
         {
             abilities["Attack"].Add(attackName, power);
@@ -92,6 +107,8 @@ namespace CodexGame
         {
             abilities["Defense"].Add(defenseName, defense);
         }
-        public abstract void CreatureDescription();
+        public virtual void CreatureDescription()
+        {
+        }
     }
 }
