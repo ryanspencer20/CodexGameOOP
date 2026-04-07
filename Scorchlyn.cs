@@ -15,9 +15,13 @@ namespace CodexGame
 {
     internal class Scorchlyn: Creatures
     {
-        public Scorchlyn(int health, int level, bool isCaptured = false, Dictionary<String, Dictionary<String, int>> abilities = null) : base(name: "Scorchlyn", health, level, type: CreatureType.Fire, isCaptured, abilities)
+        public Scorchlyn(int health, int level, bool isCaptured = false) : base(name: "Scorchlyn", health, level, type: CreatureType.Fire, isCaptured)
         {
+            base.AddAttack("Exhaust Engulf", 20);
+            base.AddAttack("Flamed Tail", 30);
+            base.AddDefense("Fire Guard", 10);
         }
+
         public override void CreatureDescription()
          {
              Console.WriteLine("This creature is found at the base of the Belisle Coast inactive volcano of the Tertiannary Mountains at the heart of the region. It’s rarely found beyond this territory as it is extremely territorial. If agitated, it can get very aggressive!");
