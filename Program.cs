@@ -16,22 +16,10 @@ namespace CodexGame
         static void Main(string[] args)
         {
             bool gameplay = true; // Gameplay flag to control the main game loop, which will allow the player to continue playing and exploring the world, capturing and battling new creatures until they choose to exit the game.
-            // Create some initial creatures for the player to encounter and capture, which will provide variety in the creatures that players can encounter and capture, enhancing the gameplay experience and encouraging exploration of the game world.
-            Creatures ashHoof = new Creatures("Ash-Hoof", 100, 1, CreatureType.Fire);  
-            ashHoof.AddAttack("Flaming Charge", 25);
-            ashHoof.AddDefense("Ashen Guard", 5);         
-            Creatures thorntail = new Creatures("Thorn-Tail", 100, 1, CreatureType.Earth);           
-            thorntail.AddAttack("Spike Strike", 20);
-            thorntail.AddDefense("Thorn Shield", 15);
-            Creatures coralslash = new Creatures("Coral-Slash", 100, 1, CreatureType.Water);          
-            coralslash.AddAttack("Tidal Slash", 30);
-            coralslash.AddDefense("Water Guard", 10);
-            Creatures zephyrwing = new Creatures("Zephyr-Wing", 100, 1, CreatureType.Wind);
-            zephyrwing.AddAttack("Gust", 20);
-            zephyrwing.AddDefense("Air Barrier", 10);
+            // Create some initial creatures for the player to encounter and capture, which will provide variety in the creatures that players can encounter and capture, enhancing the gameplay experience and encouraging exploration of the game world.                   
 
             // Make array for wild creature encounters, which will allow for dynamic generation of encounters and provide variety in the creatures that players can encounter and capture, enhancing the gameplay experience and encouraging exploration of the game world.
-            Creatures[] wildEncounters = new Creatures[] { ashHoof, zephyrwing, thorntail, coralslash };
+            Creatures[] wildEncounters = new Creatures[] { new AshHoof(100, 1), new Coralslash(100, 1), new Thorntail(100, 1), new Zephyrwing(100, 1) };
 
             Creatures playerStarter = Introduction(); // Call the Introduction method to start the game and allow the player to choose their starting creature.  
             
@@ -113,9 +101,6 @@ namespace CodexGame
                 {
                     case "1":
                         Scorchlyn scorchlynStarter = new Scorchlyn(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
-                        scorchlynStarter.AddAttack("Exhaust Engulf", 20);
-                        scorchlynStarter.AddAttack("Flamed Tail", 30);
-                        scorchlynStarter.AddDefense("Fire Guard", 10);
                         Console.WriteLine($"You have chosen {scorchlynStarter.GetType().Name}!");
                         scorchlynStarter.CreatureStats();
                         scorchlynStarter.CreatureDescription();
@@ -125,9 +110,6 @@ namespace CodexGame
                         break;
                     case "2":
                         Swirlyfin swirlyfinStarter = new Swirlyfin(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
-                        swirlyfinStarter.AddAttack("Whirlpool", 30);
-                        swirlyfinStarter.AddDefense("Agility", 15);
-                        swirlyfinStarter.AddDefense("Fin Array", 20);
                         Console.WriteLine($"You have chosen {swirlyfinStarter.GetType().Name}!");
                         swirlyfinStarter.CreatureStats();
                         swirlyfinStarter.CreatureDescription();
@@ -137,9 +119,6 @@ namespace CodexGame
                         break;
                     case "3":
                         Tarkyuss tarkyussStarter = new Tarkyuss(100, 1); // Starting stats for healthy creature at level 1, which will be used as the base stats for all creatures in the game and can be modified as the player captures and levels up their creatures.
-                        tarkyussStarter.AddAttack("Claw Strike", 15);
-                        tarkyussStarter.AddAttack("Rolling Spikes", 35);
-                        tarkyussStarter.AddDefense("Shell Shield", 10);
                         Console.WriteLine($"You have chosen {tarkyussStarter.GetType().Name}!");
                         tarkyussStarter.CreatureStats();
                         tarkyussStarter.CreatureDescription();

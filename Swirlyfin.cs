@@ -15,8 +15,11 @@ namespace CodexGame
 {
     internal class Swirlyfin: Creatures
     {
-        public Swirlyfin(int health, int level, bool isCaptured = false, Dictionary<String, Dictionary<String, int>> abilities = null) : base(name: "Swirlyfin", health, level, type: CreatureType.Water, isCaptured, abilities)
+        public Swirlyfin(int health, int level, bool isCaptured = false) : base(name: "Swirlyfin", health, level, type: CreatureType.Water, isCaptured)
         {
+            base.AddAttack("Whirlpool", 30);
+            base.AddDefense("Agility", 15);
+            base.AddDefense("Fin Array", 20);
         }
 
         public override void CreatureDescription()

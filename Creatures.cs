@@ -99,11 +99,11 @@ namespace CodexGame
             activeDefense = 0;
             return def;
         }
-        public void AddAttack(String attackName, int power) // Add an attack name and power to the dictionary.
+        public virtual void AddAttack(String attackName, int power) // Add an attack name and power to the dictionary.
         {
             abilities["Attack"].Add(attackName, power);
         }
-        public void AddDefense(String defenseName, int defense) // Add a defense name and value to the dictionary.
+        public virtual void AddDefense(String defenseName, int defense) // Add a defense name and value to the dictionary.
         {
             abilities["Defense"].Add(defenseName, defense);
         }
