@@ -35,8 +35,7 @@ namespace CodexGame
 
             Creatures playerStarter = Introduction(); // Call the Introduction method to start the game and allow the player to choose their starting creature.  
             
-            Creatures encounteredCreature = RandomEncounter(wildEncounters); // Generate a random encounter with a wild creature from the array of encounters.
-
+            // TO DO: Add a MENU loop to allow the player to continue playing and exploring the world, capturing 
             while (gameplay) {
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("1. Search for a new creature");
@@ -46,8 +45,8 @@ namespace CodexGame
                 switch (menuChoice)
                 {
                     case "1":
-                        Console.WriteLine("You venture into the wilds in search of new creatures...");            
-                        // TO DO: Add a MENU loop to allow the player to continue playing and exploring the world, capturing  
+                        Console.WriteLine("You venture into the wilds in search of new creatures...");
+                        Creatures encounteredCreature = RandomEncounter(wildEncounters); // Generate a random encounter with a wild creature from the array of encounters.            
                         BattleTracker creatureBattle = new BattleTracker(playerStarter, encounteredCreature); // Create an instance of the BattleTracker class to track the player's battles and progress, which will allow for a more engaging and immersive gameplay experience as players can see their progress and achievements in the game.
                         creatureBattle.RunBattleLoop(); // Call the RunBattleLoop method to start the battle between the player's creature and the encountered creature, which will allow players to engage in battles and test their strategies and abilities against different creatures in the game.
                         // and battling new creatures. This will involve creating additional methods for different game actions and interactions.
@@ -160,8 +159,8 @@ namespace CodexGame
         }
         static Creatures RandomEncounter(Creatures[] encounters) // Method to generate a random encounter with a wild creature from the specified array of encounters, which will allow for dynamic generation of encounters and provide variety in the creatures that players can encounter and capture.
         {
-            Random rand = new Random(); // Create a new instance of the Random class to generate random numbers, which will be used to select a random creature from the array of encounters.
-            int encounter = rand.Next(encounters.Length); // Generate a random index within the bounds of the encounters array, which will be used to select a random creature from the array.
+            Random index = new Random(); // Create a new instance of the Random class to generate random numbers, which will be used to select a random creature from the array of encounters.
+            int encounter = index.Next(encounters.Length); // Generate a random index within the bounds of the encounters array, which will be used to select a random creature from the array.
             return encounters[encounter]; // Return the randomly selected creature from the array of encounters.
         }
     }
