@@ -144,9 +144,19 @@ namespace CodexGame
             Console.WriteLine($"\nWild {enemyCreature.GetName()} used {moveName}!");
             int blocked = playerCreature.DefenseUsed();
             int netDamage = Math.Max(0, damage - blocked);
-            playerCreature.UpdateHealth(-netDamage);
+            
+            // Conditional combat logic for enemy creature
             if (blocked > 0) Console.WriteLine($"{playerCreature.GetName()} resisted {blocked} damage!");
-            Console.WriteLine($"{playerCreature.GetName()} took {netDamage} damage!");
+            bool attackHit = CombatAccuracy();
+            if (attackHit == true)
+            {
+                playerCreature.UpdateHealth(-netDamage);
+                Console.WriteLine($"{playerCreature.GetName()} took {netDamage} damage!");
+            }
+            else
+            {
+                Console.WriteLine($"{enemyCreature.GetName()}'s attack missed!");
+            }
         }
 
         public void OutcomeMessage()
@@ -169,7 +179,7 @@ namespace CodexGame
             float accuracy = hitChance.Next(1,101);
 
             // Conditional for hitting target
-            if (accuracy <= 80)
+            if (accuracy < 80)
             {
                 return true;
             }
