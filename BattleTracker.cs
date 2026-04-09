@@ -69,13 +69,23 @@ namespace CodexGame
                     Console.Write("Enter number: ");
                     if (int.TryParse(Console.ReadLine(), out int moveNum) && moveNum > 0 && moveNum <= attacks.Count)
                     {
-                        // Pull the move name based on the number chosen
-                        string moveName = attacks.Keys.ElementAt(moveNum - 1);
-                        int damage = attacks[moveName];
+                        // Logic for random attack.
+                        bool attackHit = CombatAccuracy();
+                        if (attackHit == true)
+                        {
+                            // Pull the move name based on the number chosen
+                            string moveName = attacks.Keys.ElementAt(moveNum - 1);
+                            int damage = attacks[moveName];
 
-                        enemyCreature.UpdateHealth(-damage);
-                        Console.WriteLine($"\n{playerCreature.GetName()} used {moveName} for {damage} damage!");
-                        validChoice = true;
+                            enemyCreature.UpdateHealth(-damage);
+                            Console.WriteLine($"\n{playerCreature.GetName()} used {moveName} for {damage} damage!");
+                            validChoice = true;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"{playerCreature.GetName()}'s attack missed!");
+                            validChoice = true;
+                        }
                     }
                     else
                     {
@@ -149,6 +159,23 @@ namespace CodexGame
             else
             {
                 Console.WriteLine($"The wild {enemyCreature.GetName()} fainted! You won!");
+            }
+        }
+
+        private bool CombatAccuracy()
+        {
+            // Accuracy Random chance to hit or miss attack
+            Random hitChance = new Random();
+            float accuracy = hitChance.Next(1,101);
+
+            // Conditional for hitting target
+            if (accuracy <= 80)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
             }
         }
     }
