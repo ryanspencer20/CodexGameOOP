@@ -15,7 +15,7 @@ namespace CodexGame
 {
     internal class Thorntail: Creatures
     {
-        public Thorntail(int health, int level, bool isCaptured = false) : base(name: "Ash-Hoof", health, level, type: CreatureType.Fire, isCaptured)
+        public Thorntail(int health, int level, bool isCaptured = false) : base(name: "Ash-Hoof", health, level, type: CreatureType.Fire, isCaptured, evasion: 0.15, accuracy: 0.89)
         {
             base.AddAttack("Spike Strike", 20);
             base.AddDefense("Thorn Shield", 15);

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 /*
@@ -26,8 +27,10 @@ namespace CodexGame
         private CreatureType type;
         private bool isCaptured;
         private int activeDefense = 0;
+        private double evasion;
+        private double accuracy;
         private Dictionary<String, Dictionary<String, int>> abilities = new Dictionary<String, Dictionary<String, int>> { { "Attack", new Dictionary<String, int>() }, { "Defense", new Dictionary<String, int>() } }; // Dictionary to store the creature's abilities, which will allow for dynamic addition and management of abilities for each creature, enhancing the depth and customization options for players.
-        public Creatures(String name, int health, int level, CreatureType type, bool isCaptured = false, Dictionary<String, Dictionary<String, int>> abilities = null)
+        public Creatures(String name, int health, int level, CreatureType type, bool isCaptured = false, double evasion = 0, double accuracy = 0, Dictionary<String, Dictionary<String, int>> abilities = null)
         {
             this.name = name;
             this.health = health;
@@ -35,6 +38,8 @@ namespace CodexGame
             this.type = type;
             this.abilities = abilities ?? new Dictionary<String, Dictionary<String, int>> { { "Attack", new Dictionary<String, int>() }, { "Defense", new Dictionary<String, int>() } };
             this.isCaptured = isCaptured;
+            this.evasion = evasion;
+            this.accuracy = accuracy;
         }
         public String GetName() // Get the creature's name, which will allow players to easily identify and refer to their creatures during battles and interactions.
         {
@@ -89,15 +94,20 @@ namespace CodexGame
                 health += amount;
             }
         }
-        public void SetActiveDefense(int amount)
+        public int GetDefense()
         {
-            activeDefense = amount;
+            return activeDefense;
         }
-        public int DefenseUsed()
+        public void AddActiveDefense(int amount)
         {
-            int def = activeDefense;
-            activeDefense = 0;
-            return def;
+            if ((activeDefense + amount) > 50) activeDefense = 50;
+            else activeDefense += amount;
+        }
+        public int DefenseUsed(int amount)
+        {
+            if ((activeDefense - amount) < 0) activeDefense = 0;
+            else activeDefense -= amount;
+            return activeDefense;
         }
         public virtual void AddAttack(String attackName, int power) // Add an attack name and power to the dictionary.
         {
@@ -106,6 +116,15 @@ namespace CodexGame
         public virtual void AddDefense(String defenseName, int defense) // Add a defense name and value to the dictionary.
         {
             abilities["Defense"].Add(defenseName, defense);
+        }
+        public double GetEvasion()
+        {
+            return evasion * 100;
+        }
+        
+        public double GetAccuracy()
+        {
+            return accuracy * 100;
         }
         public virtual void CreatureDescription()
         {

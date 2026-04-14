@@ -15,7 +15,7 @@ namespace CodexGame
 {
     internal class Tarkyuss: Creatures
     {
-        public Tarkyuss(int health, int level, bool isCaptured = false) : base(name: "Tarkyuss", health, level, type: CreatureType.Earth, isCaptured)
+        public Tarkyuss(int health, int level, bool isCaptured = false) : base(name: "Tarkyuss", health, level, type: CreatureType.Earth, isCaptured, evasion: 0.22, accuracy: 0.85)
         {
             base.AddAttack("Claw Strike", 15);
             base.AddAttack("Rolling Spikes", 35);

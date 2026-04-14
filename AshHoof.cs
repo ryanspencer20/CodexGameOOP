@@ -15,7 +15,7 @@ namespace CodexGame
 {
     internal class AshHoof: Creatures
     {
-        public AshHoof(int health, int level, bool isCaptured = false) : base(name: "Ash-Hoof", health, level, type: CreatureType.Fire, isCaptured)
+        public AshHoof(int health, int level, bool isCaptured = false) : base(name: "Ash-Hoof", health, level, type: CreatureType.Fire, isCaptured, evasion: 0.28, accuracy: 0.90)
         {
             base.AddAttack("Flaming Charge", 25);
             base.AddDefense("Ashen Guard", 5);

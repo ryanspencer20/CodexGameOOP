@@ -15,7 +15,7 @@ namespace CodexGame
 {
     internal class Zephyrwing: Creatures
     {
-        public Zephyrwing(int health, int level, bool isCaptured = false) : base(name: "Zephyr-Wing", health, level, type: CreatureType.Wind, isCaptured)
+        public Zephyrwing(int health, int level, bool isCaptured = false) : base(name: "Zephyr-Wing", health, level, type: CreatureType.Wind, isCaptured, evasion: 0.24, accuracy: 0.91)
         {
             base.AddAttack("Gust", 20);
             base.AddDefense("Air Barrier", 10);
