@@ -184,7 +184,7 @@ namespace CodexGame
             }
         }
 
-        private bool CombatEvasion()
+        private bool CombatEvasion() // This method is used for both creatures in combat for rolling evasion of attacks.
         {
             // Accuracy Random chance to hit or miss attack
             Random hitChance = new Random();
@@ -217,7 +217,7 @@ namespace CodexGame
                 }
             }
         }
-        private bool CombatAccuracy()
+        private bool CombatAccuracy() // This method is used for both creatures in combat for rolling accuracy of attacks.
         {
             // Accuracy Random chance to hit or miss attack
             Random hitChance = new Random();
