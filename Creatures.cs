@@ -21,7 +21,7 @@ namespace CodexGame
     }
     internal class Creatures // Parent Class representing a creature in the Codex Game
     {
-        private String name;
+        private String name; 
         private int health;
         private int level;
         private CreatureType type;

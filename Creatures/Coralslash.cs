@@ -2,8 +2,8 @@
     IOT1026 - Object-Oriented Programming - Final Project
     Ryan Spencer - Dylan Brost
  * Codex: Creature Capture Game - A creature capture game where players can search, capture and battle other creatures. 
- * Scorchlyn is one of the starter creatures that players can choose at the beginning of the game, as well as capture in the wild. 
- * Child class representing the Scorchlyn creature, which inherits from the Creatures parent class and provides specific implementation for the CreatureDescription method to describe Scorchlyn's characteristics and behavior.
+ * Coral-Slash is a wild creature that players can encounter and capture in the game. 
+ * Child class representing the Coral-Slash creature, which inherits from the Creatures parent class and provides specific implementation for the CreatureDescription method to describe Coral-Slash's characteristics and behavior.
 */
 
 using System;
@@ -22,8 +22,8 @@ namespace CodexGame
         }
         public override void CreatureDescription()
         {
-            Console.WriteLine("This creature is found at the base of the Belisle Coast inactive volcano of the Tertiannary Mountains at the heart of the region. It’s rarely found beyond this territory as it is extremely territorial. If agitated, it can get very aggressive!");
-            Console.WriteLine(""); // Provide a detailed description of Scorchlyn's characteristics and behavior, which will help players understand the creature's strengths, weaknesses, and personality, enhancing their connection to the creature and their immersion in the game world.
+            Console.WriteLine("Coral-Slash is a sleek and agile creature that resembles a combination of a coral reef and a predatory fish. It has a vibrant and colorful appearance, with sharp, blade-like fins that it uses to slash through its opponents in battle. Coral-Slash is known for its speed and precision, able to strike quickly and accurately while evading attacks with its agile movements. It has a calm and collected demeanor, often using its strategic thinking to outmaneuver its opponents in combat. Coral-Slash is also highly adaptable, able to thrive in various aquatic environments and utilize its surroundings to its advantage during battles.");
+            Console.WriteLine(""); // Provide a detailed description of Coral-Slash's characteristics and behavior, which will help players understand the creature's strengths, weaknesses, and personality, enhancing their connection to the creature and their immersion in the game world.
         }
     }
 }

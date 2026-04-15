@@ -2,8 +2,8 @@
     IOT1026 - Object-Oriented Programming - Final Project
     Ryan Spencer - Dylan Brost
  * Codex: Creature Capture Game - A creature capture game where players can search, capture and battle other creatures. 
- * Scorchlyn is one of the starter creatures that players can choose at the beginning of the game, as well as capture in the wild. 
- * Child class representing the Scorchlyn creature, which inherits from the Creatures parent class and provides specific implementation for the CreatureDescription method to describe Scorchlyn's characteristics and behavior.
+ * Zephyr-Wing is a wild creature that players can encounter and capture in the game. 
+ * Child class representing the Zephyr-Wing creature, which inherits from the Creatures parent class and provides specific implementation for the CreatureDescription method to describe Zephyr-Wing's characteristics and behavior.
 */
 
 using System;
@@ -22,8 +22,8 @@ namespace CodexGame
         }
         public override void CreatureDescription()
         {
-            Console.WriteLine("This creature is found at the base of the Belisle Coast inactive volcano of the Tertiannary Mountains at the heart of the region. It’s rarely found beyond this territory as it is extremely territorial. If agitated, it can get very aggressive!");
-            Console.WriteLine(""); // Provide a detailed description of Scorchlyn's characteristics and behavior, which will help players understand the creature's strengths, weaknesses, and personality, enhancing their connection to the creature and their immersion in the game world.
+            Console.WriteLine("Zephyr-Wing is a graceful and agile creature that resembles a combination of a bird and a butterfly. It has large, colorful wings that allow it to soar through the air with ease, and its slender body is covered in soft, feathery fur. Zephyr-Wing is known for its speed and agility, able to quickly dodge attacks while delivering swift and precise strikes to its opponents. It has a gentle and serene personality, often using its calming presence to diffuse tense situations and avoid unnecessary conflicts. Zephyr-Wing is also highly intelligent, able to analyze its surroundings and adapt its strategies during battles.");
+            Console.WriteLine(""); // Provide a detailed description of Zephyr-Wing's characteristics and behavior, which will help players understand the creature's strengths, weaknesses, and personality, enhancing their connection to the creature and their immersion in the game world.
         }
     }
 }
