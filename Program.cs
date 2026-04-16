@@ -20,7 +20,8 @@ namespace CodexGame
             // Make array for wild creature encounters, which will allow for dynamic generation of encounters and provide variety in the creatures that players can encounter and capture, enhancing the gameplay experience and encouraging exploration of the game world.
             Creatures[] wildEncounters = new Creatures[] { new AshHoof(100, 1), new Coralslash(100, 1), new Thorntail(100, 1), new Zephyrwing(100, 1) };
 
-            Creatures playerStarter = Introduction(); // Call the Introduction method to start the game and allow the player to choose their starting creature.  
+            Player playerChar = Introduction(); // Call the Introduction method to start the game and allow the player to choose their starting creature.  
+            Creatures playerStarter = playerChar.GetActiveCreature(); // Getting the Player Character Active Creature.
             
             // TO DO: Add a MENU loop to allow the player to continue playing and exploring the world, capturing 
             while (gameplay) {
@@ -32,7 +33,7 @@ namespace CodexGame
                 switch (menuChoice)
                 {
                     case "1":
-                        Console.WriteLine("You venture into the wilds in search of new creatures...");
+                        Console.WriteLine($"{playerChar.GetName()} venture into the wilds in search of new creatures...");
                         Creatures encounteredCreature = RandomEncounter(wildEncounters); // Generate a random encounter with a wild creature from the array of encounters.            
                         BattleTracker creatureBattle = new BattleTracker(playerStarter, encounteredCreature); // Create an instance of the BattleTracker class to track the player's battles and progress, which will allow for a more engaging and immersive gameplay experience as players can see their progress and achievements in the game.
                         creatureBattle.RunBattleLoop(); // Call the RunBattleLoop method to start the battle between the player's creature and the encountered creature, which will allow players to engage in battles and test their strategies and abilities against different creatures in the game.
@@ -53,7 +54,7 @@ namespace CodexGame
             }
         }
         // Introduction method to welcome the player and start the game by allowing them to choose their starting creature.
-        static Creatures Introduction() // Intro Method & Creature Objects written by Ryan Spencer
+        static Player Introduction() // Intro Method & Creature Objects written by Ryan Spencer
         {
             Creatures starterChoice = null; // Placeholder for the player's starter creature, which will be assigned based on the player's choice and used as their initial creature in the game.
             bool validInput = false; // Valid input flag to control the input validation loops, which will ensure that the player enters valid data and can proceed with the game without errors or issues.
@@ -133,7 +134,8 @@ namespace CodexGame
             }
             Console.WriteLine("");
             Console.WriteLine($"Congratulations {playerName} on choosing your first creature! Your adventure begins now. Explore the world, capture new creatures, and become a legendary trainer!");
-            return starterChoice; // Return the selected creature to be used as the player's starter creature in the game.
+            Player playerChar = new Player(playerName, starterChoice); // Return the selected creature to be used as the player's starter creature in the game.
+            return playerChar;
         }
         static Creatures RandomEncounter(Creatures[] encounters) // Method to generate a random encounter with a wild creature from the specified array of encounters, which will allow for dynamic generation of encounters and provide variety in the creatures that players can encounter and capture.
         {
