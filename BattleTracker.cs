@@ -69,13 +69,29 @@ namespace CodexGame
                     Console.Write("Enter number: ");
                     if (int.TryParse(Console.ReadLine(), out int moveNum) && moveNum > 0 && moveNum <= attacks.Count)
                     {
-                        // Pull the move name based on the number chosen
-                        string moveName = attacks.Keys.ElementAt(moveNum - 1);
-                        int damage = attacks[moveName];
+                        // Logic for random attack.
+                        bool hasEvaded = CombatEvasion();
+                        bool AttackHits = CombatAccuracy();
+                        if (hasEvaded == true)
+                        {
+                            Console.WriteLine($"{enemyCreature.GetName()} dodged the attack!");
+                            validChoice = true;
+                        }
+                        else if (AttackHits == false)
+                        {
+                            Console.WriteLine($"{playerCreature.GetName()}'s attack missed!");
+                            validChoice = true;
+                        }
+                        else
+                        {
+                            // Pull the move name based on the number chosen
+                            string moveName = attacks.Keys.ElementAt(moveNum - 1);
+                            int damage = attacks[moveName];
 
-                        enemyCreature.UpdateHealth(-damage);
-                        Console.WriteLine($"\n{playerCreature.GetName()} used {moveName} for {damage} damage!");
-                        validChoice = true;
+                            enemyCreature.UpdateHealth(-damage);
+                            Console.WriteLine($"\n{playerCreature.GetName()} used {moveName} for {damage} damage!");
+                            validChoice = true;
+                        }
                     }
                     else
                     {
@@ -104,7 +120,7 @@ namespace CodexGame
                         string moveName = defenses.Keys.ElementAt(moveNum - 1);
                         int defense = defenses[moveName];
 
-                        playerCreature.SetActiveDefense(defense);
+                        playerCreature.AddActiveDefense(defense);
                         Console.WriteLine($"\n{playerCreature.GetName()} used {moveName} and raised defense by {defense}!");
                         validChoice = true;
                     }
@@ -132,11 +148,27 @@ namespace CodexGame
             int damage = enemyAttacks[moveName];
 
             Console.WriteLine($"\nWild {enemyCreature.GetName()} used {moveName}!");
-            int blocked = playerCreature.DefenseUsed();
+            int blocked = playerCreature.GetDefense();
             int netDamage = Math.Max(0, damage - blocked);
-            playerCreature.UpdateHealth(-netDamage);
-            if (blocked > 0) Console.WriteLine($"{playerCreature.GetName()} resisted {blocked} damage!");
-            Console.WriteLine($"{playerCreature.GetName()} took {netDamage} damage!");
+            
+            // Conditional combat logic for enemy creature
+            bool hasEvaded = CombatEvasion();
+            bool AttackHits = CombatAccuracy();
+            if (hasEvaded == true)
+            {
+               Console.WriteLine($"{playerCreature.GetName()} dodged the attack!"); 
+            }
+            else if (AttackHits == false)
+            {
+                Console.WriteLine($"{enemyCreature.GetName()}'s attack missed!");
+            }
+            else
+            {
+                if (blocked > 0) Console.WriteLine($"{playerCreature.GetName()} resisted {blocked} damage!");
+                playerCreature.DefenseUsed(damage);
+                playerCreature.UpdateHealth(-netDamage);
+                Console.WriteLine($"{playerCreature.GetName()} took {netDamage} damage!");
+            }
         }
 
         public void OutcomeMessage()
@@ -149,6 +181,73 @@ namespace CodexGame
             else
             {
                 Console.WriteLine($"The wild {enemyCreature.GetName()} fainted! You won!");
+            }
+        }
+
+        private bool CombatEvasion() // This method is used for both creatures in combat for rolling evasion of attacks.
+        {
+            // Accuracy Random chance to hit or miss attack
+            Random hitChance = new Random();
+            double evasionChance = hitChance.Next(1,101);
+            
+        
+            // Conditional for hitting target
+            if (TurnOrder == 0) // Player's Turn
+            {
+                Console.WriteLine($"TEST: Evasion for enemy creature is {enemyCreature.GetEvasion()}%");
+                if (evasionChance < enemyCreature.GetEvasion())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else // Enemy's Turn
+            {
+                Console.WriteLine($"TEST: Evasion for the player creature is {playerCreature.GetEvasion()}%");
+                if (evasionChance < playerCreature.GetEvasion())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+        private bool CombatAccuracy() // This method is used for both creatures in combat for rolling accuracy of attacks.
+        {
+            // Accuracy Random chance to hit or miss attack
+            Random hitChance = new Random();
+            double AccuracyChance = hitChance.Next(1,101);
+            
+        
+            // Conditional for hitting target
+            if (TurnOrder == 0) // Player's Turn
+            {
+                Console.WriteLine($"TEST: Accuracy for enemy creature is {enemyCreature.GetAccuracy()}%");
+                if (AccuracyChance < enemyCreature.GetAccuracy())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else // Enemy's Turn
+            {
+                Console.WriteLine($"TEST: Accuracy for the player creature is {playerCreature.GetAccuracy()}%");
+                if (AccuracyChance < playerCreature.GetAccuracy())
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
     }

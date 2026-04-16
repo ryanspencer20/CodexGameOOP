@@ -15,8 +15,7 @@ namespace CodexGame
     {
         static void Main(string[] args)
         {
-            bool gameplay = true; // Gameplay flag to control the main game loop, which will allow the player to continue playing and exploring the world, capturing and battling new creatures until they choose to exit the game.
-            // Create some initial creatures for the player to encounter and capture, which will provide variety in the creatures that players can encounter and capture, enhancing the gameplay experience and encouraging exploration of the game world.                   
+            bool gameplay = true; // Gameplay flag to control the main game loop, which will allow the player to continue playing and exploring the world, capturing and battling new creatures until they choose to exit the game.                 
 
             // Make array for wild creature encounters, which will allow for dynamic generation of encounters and provide variety in the creatures that players can encounter and capture, enhancing the gameplay experience and encouraging exploration of the game world.
             Creatures[] wildEncounters = new Creatures[] { new AshHoof(100, 1), new Coralslash(100, 1), new Thorntail(100, 1), new Zephyrwing(100, 1) };

@@ -15,7 +15,7 @@ namespace CodexGame
 {
     internal class Scorchlyn: Creatures
     {
-        public Scorchlyn(int health, int level, bool isCaptured = false) : base(name: "Scorchlyn", health, level, type: CreatureType.Fire, isCaptured)
+        public Scorchlyn(int health, int level, bool isCaptured = false) : base(name: "Scorchlyn", health, level, type: CreatureType.Fire, isCaptured, evasion: 0.16, accuracy: 0.80)
         {
             base.AddAttack("Exhaust Engulf", 20);
             base.AddAttack("Flamed Tail", 30);
