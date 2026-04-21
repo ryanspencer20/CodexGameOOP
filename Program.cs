@@ -28,22 +28,55 @@ namespace CodexGame
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("1. Search for a new creature");
                 Console.WriteLine("2. View your creature collection");
-                Console.WriteLine("3. Exit Game");
+                Console.WriteLine("3. Rotate Active Creature");         // Added Rotate active Creature option for the player
+                Console.WriteLine("4. Exit Game");
                 string menuChoice = Console.ReadLine();
                 switch (menuChoice)
                 {
                     case "1":
                         Console.WriteLine($"{playerChar.GetName()} venture into the wilds in search of new creatures...");
-                        Creatures encounteredCreature = RandomEncounter(wildEncounters); // Generate a random encounter with a wild creature from the array of encounters.            
-                        BattleTracker creatureBattle = new BattleTracker(playerStarter, encounteredCreature); // Create an instance of the BattleTracker class to track the player's battles and progress, which will allow for a more engaging and immersive gameplay experience as players can see their progress and achievements in the game.
-                        creatureBattle.RunBattleLoop(); // Call the RunBattleLoop method to start the battle between the player's creature and the encountered creature, which will allow players to engage in battles and test their strategies and abilities against different creatures in the game.
+                        Creatures encounteredCreature = RandomEncounter(wildEncounters); // Generate a random encounter with a wild creature from the array of encounters.
+                        encounteredCreature.SetHealth(100); // resets the encounted creatures health to full to ensure a fresh next encounter with it
+                        BattleTracker creatureBattle = new BattleTracker(playerChar.GetActiveCreature(), encounteredCreature); // Create an instance of the BattleTracker class to track the player's battles and progress, which will allow for a more engaging and immersive gameplay experience as players can see their progress and achievements in the game.
+                        creatureBattle.RunBattleLoop();
+                        // Call the RunBattleLoop method to start the battle between the player's creature and the encountered creature, which will allow players to engage in battles and test their strategies and abilities against different creatures in the game.
                         // and battling new creatures. This will involve creating additional methods for different game actions and interactions.
+
+                        // Handles the end results of the battle, if the creature is defeated rewards you a health potion and option to use one to continue fighting
+                        // also prompts the player if they beat the creature and want to capture it
+                        if (encounteredCreature.GetHealth() <= 0)
+                        {
+                            Console.WriteLine($"\nVictory! You found a Health Potion on the ground.");
+                            playerChar.AddItem("Health Potion", 1); // A reward of a health potion to keep going
+
+                            Console.WriteLine($"\nThe {encounteredCreature.GetName()} fainted! Attempt capture? (Y/N)");
+                            string input = Console.ReadLine().ToUpper();
+
+                            if (input == "Y" || input == "YES")
+                            {
+                                playerChar.CaptureCreature(encounteredCreature);
+                            }
+
+                            Console.WriteLine("\nWould you like to use a Health Potion to fully heal your creature? (Y/N)");
+                            if (Console.ReadLine().ToUpper() == "Y")
+                            {
+                                playerChar.HealActiveCreature();
+                            }
+                        }
+                        else
+                        {
+                            Console.WriteLine("You lost and retreated from battle.....");
+                        }
                         break;
                     case "2":
                         Console.WriteLine("Your Creature Collection:");
-                        playerStarter.CreatureStats(); // Display the player's starter creature's stats, which will allow the player to view their captured creatures and their attributes, enhancing their connection to their creatures and providing information for battles and interactions.
+                        playerChar.GetActiveCreature().CreatureStats(); // Display the player's active creature and stats, which will allow the player to view their captured creatures and their attributes, enhancing their connection to their creatures and providing information for battles and interactions.
+                        playerChar.ShowInventory();  
                         break;
                     case "3":
+                        playerChar.RotateActiveCreature(); // Calls the new rotation method
+                        break;
+                    case "4":
                         Console.WriteLine("Thank you for playing the Codex: Creature Capture Game! Goodbye!");
                         gameplay = false; // Set gameplay to false to exit the main game loop and end the game.
                         continue; // Skip the rest of the loop and exit immediately after displaying the exit message.

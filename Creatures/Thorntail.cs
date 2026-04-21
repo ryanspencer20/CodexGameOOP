@@ -18,6 +18,7 @@ namespace CodexGame
         public Thorntail(int health, int level, bool isCaptured = false) : base(name: "Thorntail", health, level, type: CreatureType.Earth, isCaptured, evasion: 0.15, accuracy: 0.89)
         {
             base.AddAttack("Spike Strike", 20);
+            base.AddAttack("Pin Cushion", 35);
             base.AddDefense("Thorn Shield", 15);
         }
         public override void CreatureDescription()

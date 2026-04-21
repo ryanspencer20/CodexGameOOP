@@ -17,6 +17,7 @@ namespace CodexGame
     {
         public Coralslash(int health, int level, bool isCaptured = false) : base(name: "Coral-Slash", health, level, type: CreatureType.Water, isCaptured, evasion: 0.3, accuracy: 0.83)
         {
+            base.AddAttack("Fillet", 20);
             base.AddAttack("Tidal Slash", 30);
             base.AddDefense("Water Guard", 10);
         }

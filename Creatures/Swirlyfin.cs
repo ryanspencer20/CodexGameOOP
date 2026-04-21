@@ -17,8 +17,8 @@ namespace CodexGame
     {
         public Swirlyfin(int health, int level, bool isCaptured = false) : base(name: "Swirlyfin", health, level, type: CreatureType.Water, isCaptured, evasion: 0.32, accuracy: 0.78)
         {
+            base.AddAttack("Blinding Tailswipe", 15);
             base.AddAttack("Whirlpool", 30);
-            base.AddDefense("Agility", 15);
             base.AddDefense("Fin Array", 20);
         }
 

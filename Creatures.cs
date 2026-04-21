@@ -53,6 +53,10 @@ namespace CodexGame
         {
             return abilities["Defense"];
         }
+        public void SetHealth(int newHealth)
+        {
+            this.health = newHealth;
+        }
         public void CreatureStats()
         {
             Console.WriteLine($"Name: {name}\nHealth: {health}\nLevel: {level}\nType: {type}");
