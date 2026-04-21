@@ -9,6 +9,8 @@
  * Main program to run the Codex Game and welcome the player, asking for their name and starting the game.
 */
 using System;
+using System.Runtime.CompilerServices;
+using System.Security;
 namespace CodexGame
 {
     internal class Program
@@ -27,9 +29,10 @@ namespace CodexGame
             while (gameplay) {
                 Console.WriteLine("What would you like to do?");
                 Console.WriteLine("1. Search for a new creature");
-                Console.WriteLine("2. View your creature collection");
+                Console.WriteLine("2. View your creature");
                 Console.WriteLine("3. Rotate Active Creature");         // Added Rotate active Creature option for the player
-                Console.WriteLine("4. Exit Game");
+                Console.WriteLine("4. Visit the Belisle Island Clinic");
+                Console.WriteLine("5. Exit Game");
                 string menuChoice = Console.ReadLine();
                 switch (menuChoice)
                 {
@@ -77,6 +80,9 @@ namespace CodexGame
                         playerChar.RotateActiveCreature(); // Calls the new rotation method
                         break;
                     case "4":
+                            ClinicVisit(playerChar.GetActiveCreature(), playerChar);
+                        break;
+                    case "5":
                         Console.WriteLine("Thank you for playing the Codex: Creature Capture Game! Goodbye!");
                         gameplay = false; // Set gameplay to false to exit the main game loop and end the game.
                         continue; // Skip the rest of the loop and exit immediately after displaying the exit message.
@@ -175,6 +181,34 @@ namespace CodexGame
             Random index = new Random(); // Create a new instance of the Random class to generate random numbers, which will be used to select a random creature from the array of encounters.
             int encounter = index.Next(encounters.Length); // Generate a random index within the bounds of the encounters array, which will be used to select a random creature from the array.
             return encounters[encounter]; // Return the randomly selected creature from the array of encounters.
+        }
+
+        static void ClinicVisit(Creatures activeCreature, Player name)
+        {
+            Console.WriteLine("You visit the Clinic on Belisle island!");
+            Console.WriteLine("A nurse joins greets you.");
+            Console.WriteLine("Welcome to Belisle Island Clinic!");
+            Console.WriteLine("How may I help you?");
+            Console.WriteLine("");
+            Console.WriteLine("1. Heal my Creature");
+            Console.WriteLine("2. Exit the Clinic");
+            string menuChoice = Console.ReadLine();
+            switch (menuChoice)
+            {
+                case "1":
+                    Console.WriteLine($"Come right this way {name.GetName()}...we will treat your creature back to health!");
+                    Console.WriteLine($"The nurse takes {activeCreature.GetName()} and treats them back to full health!");
+                    activeCreature.UpdateHealth(100);
+                    Console.WriteLine($"Your {activeCreature.GetName()} is at full health!");
+                    Console.WriteLine("Your welcome anytime, have a nice day!");
+                    break;
+                case "2":
+                    Console.WriteLine("Your welcome anytime, have a nice day!");
+                    break;
+                default:
+                    Console.WriteLine("The nurse didn't understand your request...");
+                    break;
+            }
         }
     }
 }
