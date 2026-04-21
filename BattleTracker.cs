@@ -49,6 +49,7 @@ namespace CodexGame
             {
                 Console.WriteLine($"{playerCreature.GetName()} HP: {playerCreature.GetHealth()} | {enemyCreature.GetName()} HP: {enemyCreature.GetHealth()}");
                 Console.WriteLine("What will you do? 1. Attack | 2. Defense");
+                Console.Write("Enter number: ");
                 string choice = Console.ReadLine();
 
                 if (choice == "1") // Attack Logic
@@ -222,10 +223,10 @@ namespace CodexGame
             // Accuracy Random chance to hit or miss attack
             Random hitChance = new Random();
             double AccuracyChance = hitChance.Next(1,101);
-            Console.WriteLine($"TEST: Accuracy before modifier {AccuracyChance}%");
+            // Console.WriteLine($"TEST: Accuracy before modifier {AccuracyChance}%");
             int damageModifier = damage / 10; // Simple modifier to make higher damage moves slightly less accurate
             AccuracyChance += damageModifier; // Increase the chance to miss for higher damage moves
-            Console.WriteLine($"TEST: Accuracy after modifier {AccuracyChance}%");
+            // Console.WriteLine($"TEST: Accuracy after modifier {AccuracyChance}%");
         
             // Conditional for hitting target
             if (TurnOrder == 0) // Player's Turn
