@@ -42,7 +42,7 @@ namespace CodexGame
             OutcomeMessage();
         }
 
-        private void PlayerTurn()
+        private void PlayerTurn() // Private method for player's turn logic, called in the RunBattleLoop method when it's the player's turn.
         {
             bool validChoice = false;
             while (!validChoice)
@@ -51,7 +51,7 @@ namespace CodexGame
                 Console.WriteLine("What will you do? 1. Attack | 2. Defense");
                 string choice = Console.ReadLine();
 
-                if (choice == "1")
+                if (choice == "1") // Attack Logic
                 {
                     // Get the list of attacks added for each creature
                     Dictionary<string, int> attacks = playerCreature.GetAttackMoves();
@@ -68,26 +68,26 @@ namespace CodexGame
                     // Get player move selection
                     Console.Write("Enter number: ");
                     if (int.TryParse(Console.ReadLine(), out int moveNum) && moveNum > 0 && moveNum <= attacks.Count)
-                    {
+                    {                            
+                        // Pull the move name based on the number chosen
+                        string moveName = attacks.Keys.ElementAt(moveNum - 1);
+                        int damage = attacks[moveName];
+
                         // Logic for random attack.
                         bool hasEvaded = CombatEvasion();
-                        bool AttackHits = CombatAccuracy();
-                        if (hasEvaded == true)
+                        bool AttackHits = CombatAccuracy(damage);
+                        if (hasEvaded == true) // If the enemy creature evades the attack
                         {
                             Console.WriteLine($"{enemyCreature.GetName()} dodged the attack!");
                             validChoice = true;
                         }
-                        else if (AttackHits == false)
+                        else if (AttackHits == false) // If the attack misses based on accuracy
                         {
                             Console.WriteLine($"{playerCreature.GetName()}'s attack missed!");
                             validChoice = true;
                         }
-                        else
+                        else // Attack hits and damage is applied to enemy creature
                         {
-                            // Pull the move name based on the number chosen
-                            string moveName = attacks.Keys.ElementAt(moveNum - 1);
-                            int damage = attacks[moveName];
-
                             enemyCreature.UpdateHealth(-damage);
                             Console.WriteLine($"\n{playerCreature.GetName()} used {moveName} for {damage} damage!");
                             validChoice = true;
@@ -98,7 +98,7 @@ namespace CodexGame
                         Console.WriteLine("Invalid move selection!");
                     }
                 }
-                else if (choice == "2")
+                else if (choice == "2") // Defense Logic
                 {
                     // Get the list of defenses added for each creature
                     Dictionary<string, int> defenses = playerCreature.GetDefenseMoves();
@@ -153,7 +153,7 @@ namespace CodexGame
             
             // Conditional combat logic for enemy creature
             bool hasEvaded = CombatEvasion();
-            bool AttackHits = CombatAccuracy();
+            bool AttackHits = CombatAccuracy(damage);
             if (hasEvaded == true)
             {
                Console.WriteLine($"{playerCreature.GetName()} dodged the attack!"); 
@@ -194,7 +194,7 @@ namespace CodexGame
             // Conditional for hitting target
             if (TurnOrder == 0) // Player's Turn
             {
-                Console.WriteLine($"TEST: Evasion for enemy creature is {enemyCreature.GetEvasion()}%");
+                // Console.WriteLine($"TEST: Evasion for enemy creature is {enemyCreature.GetEvasion()}%");
                 if (evasionChance < enemyCreature.GetEvasion())
                 {
                     return true;
@@ -206,7 +206,7 @@ namespace CodexGame
             }
             else // Enemy's Turn
             {
-                Console.WriteLine($"TEST: Evasion for the player creature is {playerCreature.GetEvasion()}%");
+                // Console.WriteLine($"TEST: Evasion for the player creature is {playerCreature.GetEvasion()}%");
                 if (evasionChance < playerCreature.GetEvasion())
                 {
                     return true;
@@ -217,17 +217,20 @@ namespace CodexGame
                 }
             }
         }
-        private bool CombatAccuracy() // This method is used for both creatures in combat for rolling accuracy of attacks.
+        private bool CombatAccuracy(int damage) // This method is used for both creatures in combat for rolling accuracy of attacks.
         {
             // Accuracy Random chance to hit or miss attack
             Random hitChance = new Random();
             double AccuracyChance = hitChance.Next(1,101);
-            
+            Console.WriteLine($"TEST: Accuracy before modifier {AccuracyChance}%");
+            int damageModifier = damage / 10; // Simple modifier to make higher damage moves slightly less accurate
+            AccuracyChance += damageModifier; // Increase the chance to miss for higher damage moves
+            Console.WriteLine($"TEST: Accuracy after modifier {AccuracyChance}%");
         
             // Conditional for hitting target
             if (TurnOrder == 0) // Player's Turn
             {
-                Console.WriteLine($"TEST: Accuracy for enemy creature is {enemyCreature.GetAccuracy()}%");
+                // Console.WriteLine($"TEST: Accuracy for enemy creature is {enemyCreature.GetAccuracy()}%");
                 if (AccuracyChance < enemyCreature.GetAccuracy())
                 {
                     return true;
@@ -239,7 +242,7 @@ namespace CodexGame
             }
             else // Enemy's Turn
             {
-                Console.WriteLine($"TEST: Accuracy for the player creature is {playerCreature.GetAccuracy()}%");
+                // Console.WriteLine($"TEST: Accuracy for the player creature is {playerCreature.GetAccuracy()}%");
                 if (AccuracyChance < playerCreature.GetAccuracy())
                 {
                     return true;
