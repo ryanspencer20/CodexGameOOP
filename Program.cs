@@ -28,6 +28,7 @@ namespace CodexGame
             // MENU loop to allow the player to continue playing and exploring the world and capturing new creatures until they choose to exit the game.
             while (gameplay) 
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\t==Belisle Island=="); // Main menu for the player to choose their next action, which will allow them to explore the world, view their creature collection, and interact with different game features and mechanics.
                 Console.WriteLine("1. Search for a new creature");      // Option to search for a new creature, this will generate a random encounter from the array of wild creatures.
                 Console.WriteLine("2. View your creature");             // Option to view the player's active creature and stats, which will allow the player to view their captured creatures and their attributes, enhancing their connection to their creatures and providing information for battles and interactions.
@@ -41,6 +42,7 @@ namespace CodexGame
                     case "1":
                         Random rand = new Random();
                         int SearchChance = rand.Next(0, 101); // Random number generator to determine if a creature is found during the search, which will add an element of chance and excitement to the gameplay experience as players explore the world and search for new creatures.
+                        Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"{myPlayer.GetName()}:\t-It's time to venture into the wilds in search of new creatures...-");
                         NarrativePause();
                         if (SearchChance <= 90) // 90% chance to find a creature, which will provide a balanced gameplay experience where players have a good chance of finding creatures while still maintaining an element of challenge and unpredictability in their search for new creatures.
@@ -97,8 +99,10 @@ namespace CodexGame
                             Console.WriteLine($"{myPlayer.GetName()}:\t -UGH! It's been hours and no creatures found! I need a break...-");
                             NarrativePause();
                         }
+                        Console.ResetColor();
                         break;
                     case "2":
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine("");
                         Console.WriteLine($"{myPlayer.GetName()}:\t-Let's take a look at {myPlayer.GetActiveCreature().GetType().Name} for its stats!-");
                         Console.WriteLine("---------------------------------------------");
@@ -110,8 +114,10 @@ namespace CodexGame
                         myPlayer.ShowInventory();  
                         Console.WriteLine("---------------------------------------------");
                         NarrativePause();
+                        Console.ResetColor ();
                         break;
                     case "3":
+                        Console.ForegroundColor = ConsoleColor.Red;
                         if (myPlayer.GetCollection().Count <= 1) // Check if the player has more than one creature in their collection before allowing them to rotate their active creature, which will ensure that the player has a valid selection of creatures to choose from and prevent errors or issues with rotating an active creature when there are no other creatures available.
                         {
                             Console.WriteLine("You don't have any creatures in your collection to rotate! Capture some creatures first!");
@@ -123,8 +129,10 @@ namespace CodexGame
                             myPlayer.RotateActiveCreature(); // Calls the new rotation method
                             NarrativePause();
                         }
+                        Console.ResetColor();
                         break;
                     case "4":
+                        Console.ForegroundColor = ConsoleColor.DarkMagenta;
                         if (myPlayer.GetActiveCreature().GetHealth() >= 100) // Check if the player's active creature is already at full health before allowing them to visit the clinic, which will prevent unnecessary visits to the clinic and encourage players to manage their creatures' health effectively.
                         {
                             Console.WriteLine($"{myPlayer.GetName()}:\t -My {myPlayer.GetActiveCreature().GetType().Name} is already at full health! I don't need to visit the clinic right now!-");
@@ -135,15 +143,20 @@ namespace CodexGame
                             Console.WriteLine($"{myPlayer.GetName()}:\t -I should take {myPlayer.GetActiveCreature().GetType().Name} to the clinic to get healed!-");
                             ClinicVisit(myPlayer.GetActiveCreature(), myPlayer);
                         }
+                        Console.ResetColor();
                         break;
                     case "5":
+                        Console.ForegroundColor = ConsoleColor.DarkBlue;
                         Console.WriteLine("Thank you for playing the Codex: Creature Capture Game! Goodbye!");
                         NarrativePause();
                         gameplay = false; // Set gameplay to false to exit the main game loop and end the game.
                         continue; // Skip the rest of the loop and exit immediately after displaying the exit message.
                     default:
+                        Console.ForegroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("INVALID INPUT! Please select a valid option from the menu.");
+                        Console.ResetColor();
                         continue; // Invalid input, return to the beginning of the loop to display the menu again.
+                    
                 }
                 Console.Clear(); // Clear the console to start the main game loop with a clean interface after the introduction and starter selection process, which will enhance the player's immersion and focus on the gameplay experience.
             }
@@ -154,6 +167,7 @@ namespace CodexGame
             Creatures starterChoice = null; // Placeholder for the player's starter creature, which will be assigned based on the player's choice and used as their initial creature in the game.
             bool validInput = false; // Valid input flag to control the input validation loops, which will ensure that the player enters valid data and can proceed with the game without errors or issues.
             string playerName = ""; // Placeholder for the player's name outside of the input loop, which will be used to personalize the game experience and allow the player to connect with their character and the world of the Codex Game.
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine("Welcome to the Codex: Creature Capture Game!");
             while (!validInput)
             {   
@@ -183,6 +197,7 @@ namespace CodexGame
             }
             validInput = false; // Reset validInput for the next input validation loop.
             NarrativePause();
+            Console.ForegroundColor = ConsoleColor.Cyan;
             // Narrative introducing the world and the player's role as a creature trainer, which will set the stage for the adventure and provide context for the player's journey.
             Console.WriteLine($"Welcome to the land of Belisle Island, {playerName}! A land filled with mysterious creatures and endless adventures.\nAs a new trainer, you have the opportunity to explore this vibrant world, capture unique creatures, and become a legendary trainer.\nYour journey begins now, and the choices you make will shape your adventure.\nAre you ready to embark on this exciting journey?");
             NarrativePause();
@@ -205,9 +220,10 @@ namespace CodexGame
             Console.WriteLine($"{playerName}:\t-Where are we?-");
             NarrativePause();
             Console.WriteLine("Craig:\t-This is my research lab where I study the creatures of Belisle Island!-");
-             NarrativePause();
+            NarrativePause();
             Console.WriteLine("Craig:\t-I will help you get started on your adventure and teach you how to capture creatures.-");
             NarrativePause();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.WriteLine("Craig:\t-First, let's choose your starting creature!-");
             Console.WriteLine("1. Scorchlyn - Fire Type");
             Console.WriteLine("2. Swirlyfin - Water Type");
@@ -254,6 +270,7 @@ namespace CodexGame
                         break; // Check if the input is valid (1, 2, or 3), otherwise loop display an error message and prompt the player to re-enter their choice.
                 }
             }
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("");
             NarrativePause();
             Console.WriteLine($"Congratulations {playerName} on choosing your first creature! Your adventure begins now. Explore the world, capture new creatures, and become a legendary trainer!");
@@ -280,6 +297,7 @@ namespace CodexGame
 
         static void ClinicVisit(Creatures activeCreature, Player playerName)
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
             bool menuFlag = true;
             Console.WriteLine("You visit the Clinic on Belisle island!");
             NarrativePause();
@@ -323,6 +341,7 @@ namespace CodexGame
                         break;
                 }
             }
+            Console.ResetColor();
         }
         static void NarrativePause() // Method to create a pause in the narrative, allowing the player to read and absorb the story and dialogue before proceeding, which will enhance the storytelling aspect of the game and create a more immersive experience for the player.
         {

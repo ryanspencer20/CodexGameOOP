@@ -30,6 +30,7 @@ namespace CodexGame
         // enforces a cap on the creature collection to maintain balance.
         public void CaptureCreature(Creatures wildCreature)
         {
+            Console.ForegroundColor = ConsoleColor.DarkYellow;
             // Verify item exists and is used
             if (UseItem("Soul Ball"))
             {
@@ -66,6 +67,7 @@ namespace CodexGame
 
         public void ShowInventory()
         {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"\n--- {playerName}'s Inventory ---");
             foreach (var item in inventory)
             {
@@ -84,6 +86,7 @@ namespace CodexGame
             {
                 inventory.Add(itemName, amount);
             }
+            Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"Added {amount}x {itemName} to your bag.");
         }
 
@@ -95,12 +98,13 @@ namespace CodexGame
                 inventory[itemName]--;
                 return true;
             }
-
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine($"You don't have any {itemName}s left!");
             return false;
         }
         public void HealActiveCreature()
         {
+            Console.ForegroundColor = ConsoleColor.Magenta;
             // Checks potion availability in inventory before resetting active creature's health
             if (UseItem("Health Potion"))
             {
@@ -116,6 +120,7 @@ namespace CodexGame
 
         public void ShowCollection()
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
             Console.WriteLine($"\n--- {playerName}'s Creature Collection ---");
             for (int i = 0; i < collection.Count; i++)
             {
@@ -128,6 +133,7 @@ namespace CodexGame
         public void RotateActiveCreature()
         {
             ShowCollection();
+            Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("Enter the number of your captured creatures you want to make active: ");
             if (int.TryParse(Console.ReadLine(), out int choice) && choice > 0 && choice <= collection.Count)
             {

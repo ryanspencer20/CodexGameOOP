@@ -21,10 +21,13 @@ namespace CodexGame
 
         public void RunBattleLoop()
         {
+            Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"\nA wild {enemyCreature.GetName()} appeared!");
+            Console.ResetColor();
 
             while (playerCreature.GetHealth() > 0 && enemyCreature.GetHealth() > 0)
             {
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine($"\n--- Round {TurnTracker} ---");
 
                 if (TurnOrder == 0)
@@ -44,6 +47,7 @@ namespace CodexGame
 
         private void PlayerTurn() // Private method for player's turn logic, called in the RunBattleLoop method when it's the player's turn.
         {
+            Console.ForegroundColor = ConsoleColor.Blue;
             bool validChoice = false;
             while (!validChoice)
             {
@@ -58,6 +62,7 @@ namespace CodexGame
                     Dictionary<string, int> attacks = playerCreature.GetAttackMoves();
 
                     // Display the menu
+                    Console.ForegroundColor = ConsoleColor.Cyan;
                     Console.WriteLine("\nChoose an attack:");
                     int i = 1;
                     foreach (var move in attacks)
@@ -65,6 +70,7 @@ namespace CodexGame
                         Console.WriteLine($"{i}. {move.Key} ({move.Value} DMG)");
                         i++;
                     }
+                    Console.ResetColor();
 
                     // Get player move selection
                     Console.Write("Enter number: ");
@@ -135,6 +141,7 @@ namespace CodexGame
                     Console.WriteLine("Please enter 1 or 2.");
                 }
             }
+            Console.ResetColor();
         }
 
         private void EnemyTurn()
@@ -148,6 +155,7 @@ namespace CodexGame
             string moveName = enemyAttacks.Keys.ElementAt(randomIndex);
             int damage = enemyAttacks[moveName];
 
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine($"\nWild {enemyCreature.GetName()} used {moveName}!");
             int blocked = playerCreature.GetDefense();
             int netDamage = Math.Max(0, damage - blocked);
@@ -170,19 +178,25 @@ namespace CodexGame
                 playerCreature.UpdateHealth(-netDamage);
                 Console.WriteLine($"{playerCreature.GetName()} took {netDamage} damage!");
             }
+            Console.ResetColor();
         }
 
         public void OutcomeMessage()
         {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("\n--- THE BATTLE IS OVER ---");
             if (playerCreature.GetHealth() <= 0)
             {
                 Console.WriteLine("You were defeated...");
+                Console.ResetColor();
             }
             else
             {
+                Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine($"The wild {enemyCreature.GetName()} fainted! You won!");
+                Console.ResetColor();
             }
+            Console.ResetColor();
         }
 
         private bool CombatEvasion() // This method is used for both creatures in combat for rolling evasion of attacks.
