@@ -305,7 +305,7 @@ namespace CodexGame
             return encounters[encounter]; // Return the randomly selected creature from the array of encounters.
         }
 
-        static void ClinicVisit(Creatures activeCreature, Player playerName)
+        static void ClinicVisit(Creatures activeCreature, Player playerName) // Method to handle the player's visit to the clinic to heal their active creature, which will allow the player to maintain their creatures' health and continue exploring and battling in the game world.
         {
             Console.ForegroundColor = ConsoleColor.Magenta;
             bool menuFlag = true;

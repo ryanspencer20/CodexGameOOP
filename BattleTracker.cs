@@ -1,16 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-
+/*
+    * This file defines the BattleTracker class for the Codex Game.
+    * The BattleTracker class manages the turn-based battle system between the player's active creature and a wild enemy creature.
+    * It includes methods for running the battle loop, handling player and enemy turns, determining battle outcomes, and implementing combat mechanics such as evasion and accuracy.
+*/
 namespace CodexGame
 {
-    internal class BattleTracker
+    internal class BattleTracker // The BattleTracker class manages the turn-based battle system between the player's active creature and a wild enemy creature.
     {
         private int TurnOrder = 0; // 0 = Player, 1 = Enemy
-        private int TurnTracker = 1;
-        private Creatures playerCreature;
-        private Creatures enemyCreature;
-
+        private int TurnTracker = 1; // Display the current round of battle, starting at 1 for player turn
+        private Creatures playerCreature; // The player's active creature in battle
+        private Creatures enemyCreature; // The enemy creature in battle
+        // Constructor for the BattleTracker class, which initializes the player's active creature, the enemy creature, and sets the turn order and turn tracker
         public BattleTracker(Creatures playerCreature, Creatures enemyCreature, int turnOrder = 0, int turnTracker = 1)
         {
             this.playerCreature = playerCreature;
@@ -19,7 +23,7 @@ namespace CodexGame
             this.TurnTracker = turnTracker;
         }
 
-        public void RunBattleLoop()
+        public void RunBattleLoop() // Battle loop method that manages the flow of the battle.
         {
             Console.ForegroundColor = ConsoleColor.DarkCyan;
             Console.WriteLine($"\nA wild {enemyCreature.GetName()} appeared!");
@@ -131,12 +135,12 @@ namespace CodexGame
                         Console.WriteLine($"\n{playerCreature.GetName()} used {moveName} and raised defense by {defense}!");
                         validChoice = true;
                     }
-                    else
+                    else // Handle invalid input for defense selection
                     {
                         Console.WriteLine("Invalid move selection!");
                     }
                 }
-                else
+                else // Handle invalid input for action selection
                 {
                     Console.WriteLine("Please enter 1 or 2.");
                 }
@@ -144,7 +148,7 @@ namespace CodexGame
             Console.ResetColor();
         }
 
-        private void EnemyTurn()
+        private void EnemyTurn() // Private method for enemy's turn logic, called in the RunBattleLoop method when it's the enemy's turn.
         {
             var enemyAttacks = enemyCreature.GetAttackMoves();
 
@@ -181,7 +185,7 @@ namespace CodexGame
             Console.ResetColor();
         }
 
-        public void OutcomeMessage()
+        public void OutcomeMessage() // Public method to display the outcome of the battle, called at the end of the RunBattleLoop method after the battle concludes.
         {
             Console.ForegroundColor = ConsoleColor.DarkRed;
             Console.WriteLine("\n--- THE BATTLE IS OVER ---");
@@ -232,7 +236,7 @@ namespace CodexGame
                 }
             }
         }
-        private bool CombatAccuracy(int damage) // This method is used for both creatures in combat for rolling accuracy of attacks.
+        private bool CombatAccuracy(int damage) // This method is used for both creatures in combat for rolling accuracy of attacks. The damage parameter is used to apply a simple modifier to make higher damage moves slightly less accurate, adding a strategic element to move selection in battles.
         {
             // Accuracy Random chance to hit or miss attack
             Random hitChance = new Random();
