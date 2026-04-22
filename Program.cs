@@ -17,7 +17,7 @@ namespace CodexGame
     {
         static void Main(string[] args)
         {
-            Console.Title = "Codex: Creature Capture Game"; // Set the console title to the name of the game, which will enhance the branding and presentation of the game and create a more immersive experience for the player.
+            Console.Title = "Codex: Creature Capture Game"; // Set the console title to the name of the game.
             bool gameplay = true; // Gameplay flag to control the main game loop, which will allow the player to continue playing and exploring the world, capturing and battling new creatures until they choose to exit the game.                 
             Console.Clear(); // Clear the console to start the main game loop with a clean interface after the introduction and starter selection process, which will enhance the player's immersion and focus on the gameplay experience.
             // Make array for wild creature encounters, which will allow for dynamic generation of encounters and provide variety in the creatures that players can encounter and capture, enhancing the gameplay experience and encouraging exploration of the game world.
@@ -45,7 +45,7 @@ namespace CodexGame
                         Console.ForegroundColor = ConsoleColor.DarkGreen;
                         Console.WriteLine($"{myPlayer.GetName()}:\t-It's time to venture into the wilds in search of new creatures...-");
                         NarrativePause();
-                        if (SearchChance <= 90) // 90% chance to find a creature, which will provide a balanced gameplay experience where players have a good chance of finding creatures while still maintaining an element of challenge and unpredictability in their search for new creatures.
+                        if (SearchChance <= 90 && myPlayer.GetActiveCreature().GetHealth() > 0) // 90% chance to find a creature, and creature must be conscious to search.
                         {
                             Creatures encounteredCreature = RandomEncounter(wildEncounters); // Generate a random encounter with a wild creature from the array of encounters.
                             encounteredCreature.SetHealth(100); // resets the encounted creatures health to full to ensure a fresh next encounter with it
@@ -94,10 +94,20 @@ namespace CodexGame
                         }
                         else
                         {
-                            Console.WriteLine("...3 hours later...");
-                            NarrativePause();
-                            Console.WriteLine($"{myPlayer.GetName()}:\t -UGH! It's been hours and no creatures found! I need a break...-");
-                            NarrativePause();
+                            if (myPlayer.GetActiveCreature().GetHealth() <= 0) // if active creature is at 0 health, prompt player to heal at the clinic.
+                            {
+                                Console.WriteLine($"{myPlayer.GetName()}:\t -I can't search for creatures with {myPlayer.GetActiveCreature().GetType().Name} at 0 health...-");
+                                NarrativePause();
+                                Console.WriteLine($"{myPlayer.GetName()}:\t -I need to heal up at the Clinic...-");
+                                NarrativePause();
+                            }
+                            else
+                            {
+                                Console.WriteLine("...3 hours later...");
+                                NarrativePause();
+                                Console.WriteLine($"{myPlayer.GetName()}:\t -UGH! It's been hours and no creatures found! I need a break...-");
+                                NarrativePause();
+                            }
                         }
                         Console.ResetColor();
                         break;
